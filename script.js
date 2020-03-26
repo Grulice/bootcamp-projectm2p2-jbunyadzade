@@ -75,6 +75,7 @@ class Application {
         let errors = this.getInputErrors(this.initSum, this.depSum, this.term);
         this.txt_formError.innerHTML = "";
         if (errors !== "") {
+            clearTable(this.tbl_mainTable);
             this.txt_formError.innerHTML = errors;
             return;
         }
@@ -87,6 +88,7 @@ class Application {
 
         if (options.length === 0) {
             this.txt_formError.innerHTML = "Не найдено ни одного варианта!";
+            clearTable(this.tbl_mainTable);
         }
 
         this.drawTable(options);
@@ -150,16 +152,6 @@ class Application {
     }
 
     drawTable = (_optionsTable) => {
-
-        function clearTable(in_table) {
-            // Честно украдено из гугла :)
-            let rows = in_table.rows;
-            let i = rows.length;
-            while (--i) {
-                in_table.deleteRow(i);
-            }
-        }
-
         // Reset the table
         clearTable(this.tbl_mainTable);
         // Draw the table
@@ -176,7 +168,7 @@ class Application {
             cell0.innerHTML = option.bankName;
             cell1.innerHTML = option.investName;
             cell2.innerHTML = option.incomePerc;
-            cell3.innerHTML = option.finalSum.toFixed(2);
+            cell3.innerHTML = option.finalSum.toFixed(0);
 
         }
     }
@@ -255,4 +247,13 @@ function getBankProducts(bankProducts) {
     }
 
     return items;
+}
+
+function clearTable(in_table) {
+    // Честно украдено из гугла :)
+    let rows = in_table.rows;
+    let i = rows.length;
+    while (--i) {
+        in_table.deleteRow(i);
+    }
 }
